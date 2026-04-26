@@ -425,40 +425,107 @@ section{padding:100px 5vw}
 
 /* ── DEMO SECTION ── */
 .demo-section{background:var(--bg)}
-.demo-inner{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
+.demo-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.demo-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.demo-tab{
+  padding:10px 20px;border-radius:var(--radius-full);
+  border:1.5px solid var(--border2);background:transparent;
+  color:var(--text-mid);font-size:14px;font-weight:600;
+  font-family:var(--sans);cursor:pointer;transition:all 0.2s;
 }
-.demo-visual{
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:var(--radius-lg);overflow:hidden;
-  box-shadow:0 0 60px rgba(26,86,219,0.06);
+.demo-tab:hover{border-color:var(--accent);color:var(--accent)}
+.demo-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.demo-widget{
+  background:white;border:1.5px solid var(--border2);
+  border-radius:20px;overflow:hidden;position:relative;
+  box-shadow:0 8px 48px rgba(13,27,75,0.10);
 }
-.demo-browser-bar{
-  background:var(--bg3);border-bottom:1px solid var(--border);
-  padding:12px 16px;display:flex;align-items:center;gap:8px;
+.demo-chat-header{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  background:var(--bg2);
 }
-.browser-dot{width:10px;height:10px;border-radius:50%}
-.browser-dot:nth-child(1){background:#FF5F56}
-.browser-dot:nth-child(2){background:#FFBD2E}
-.browser-dot:nth-child(3){background:#27C93F}
-.browser-url{
-  flex:1;margin-left:8px;background:var(--bg);border-radius:6px;
-  padding:5px 12px;font-size:11px;color:var(--text-dim);
-  font-family:var(--mono);
-}
-.demo-content{
-  padding:28px;min-height:360px;
+.demo-chat-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--accent-dim);border:1px solid rgba(26,86,219,0.25);
   display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
 }
-.demo-placeholder{
-  width:100%;background:var(--bg3);border:2px dashed var(--border2);
-  border-radius:16px;padding:40px 24px;text-align:center;
+.demo-chat-name{font-size:14px;font-weight:700;color:var(--text)}
+.demo-chat-status{
+  font-size:12px;color:var(--accent);
+  display:flex;align-items:center;gap:5px;margin-top:2px;
 }
-.demo-placeholder p{font-size:13px;color:var(--text-dim);line-height:1.6}
-.demo-placeholder strong{
-  display:block;font-size:15px;color:var(--text-mid);margin-bottom:8px;
+.demo-status-dot{
+  width:6px;height:6px;border-radius:50%;background:#22c55e;
+  animation:pulse-green 2s infinite;
 }
+@keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{box-shadow:0 0 0 5px transparent}}
+.demo-sector-badge{
+  margin-left:auto;font-size:11px;font-weight:700;
+  color:var(--accent);background:var(--accent-dim);
+  border:1px solid rgba(26,86,219,0.2);
+  padding:4px 12px;border-radius:var(--radius-full);letter-spacing:0.04em;
+}
+.demo-msgs{
+  padding:20px;min-height:300px;max-height:300px;
+  overflow-y:auto;display:flex;flex-direction:column;gap:10px;
+  scroll-behavior:smooth;
+}
+.demo-msgs::-webkit-scrollbar{width:3px}
+.demo-msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.d-msg{
+  max-width:82%;padding:11px 15px;border-radius:16px;
+  font-size:14px;line-height:1.5;
+  animation:msgIn 0.25s ease both;
+}
+.d-msg-bot{
+  background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;
+}
+.d-msg-user{
+  background:var(--accent);color:#fff;
+  border-bottom-right-radius:4px;align-self:flex-end;
+}
+.d-typing{
+  align-self:flex-start;
+  background:var(--bg3);border:1px solid var(--border);
+  padding:14px 18px;border-radius:16px;border-bottom-left-radius:4px;
+}
+.demo-input-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;border-top:1px solid var(--border);
+}
+.demo-input-bar input{
+  flex:1;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius-full);padding:10px 16px;
+  font-size:14px;color:var(--text);outline:none;
+  font-family:var(--sans);transition:border-color 0.2s;
+}
+.demo-input-bar input:focus{border-color:var(--accent)}
+.demo-input-bar input::placeholder{color:var(--text-dim)}
+#demoSendBtn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--accent);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:15px;flex-shrink:0;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+#demoSendBtn:hover{transform:scale(1.1);box-shadow:0 0 16px var(--accent-glow)}
+.demo-wa{
+  position:absolute;bottom:80px;right:-300px;
+  background:white;border:1px solid var(--border);
+  border-radius:14px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(13,27,75,0.15);
+  width:272px;transition:right 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  z-index:10;pointer-events:none;
+}
+.demo-wa.show{right:16px}
+.demo-wa-icon{font-size:24px;flex-shrink:0}
+.demo-wa-label{font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:0.04em;margin-bottom:3px}
+.demo-wa-text{font-size:13px;color:var(--text);font-weight:500;line-height:1.4}
+@media(max-width:1024px){.demo-inner{grid-template-columns:1fr;gap:48px}}
 
 /* ── METRICS ── */
 .metrics-section{background:var(--bg2);text-align:center}
@@ -806,33 +873,56 @@ footer{
 <!-- ══ DEMO EMBED ══ -->
 <section class="demo-section" aria-labelledby="demo-heading">
   <div class="demo-inner">
+
+    <!-- Left: info + sector tabs -->
     <div class="reveal">
       <div class="s-label">Demo en vivo</div>
       <h2 class="s-title" id="demo-heading">
         Pruébalo ahora — habla con un agente <em>real</em>
       </h2>
-      <p style="color:var(--text-mid);font-size:18px;line-height:1.7;margin-top:20px;margin-bottom:32px">
-        Este es exactamente el agente que instalaríamos en tu negocio. Escríbele como si fueras un cliente potencial.
+      <p style="color:var(--text-mid);font-size:18px;line-height:1.7;margin-top:20px;margin-bottom:8px">
+        Este es exactamente el tipo de agente que instalaríamos en tu negocio. Elige tu sector y escríbele como si fueras un cliente.
       </p>
-      <a href="demo.html" class="btn-primary">Ir a la demo completa →</a>
-      <p style="margin-top:20px;font-size:16px;color:var(--text-dim)">
-        ¿Lo quieres para tu negocio? <a href="contacto.html" style="color:var(--accent);text-decoration:none;font-weight:600">Agenda una llamada de 20 min →</a>
-      </p>
-    </div>
-    <div class="demo-visual reveal d2">
-      <div class="demo-browser-bar" aria-hidden="true">
-        <div class="browser-dot"></div>
-        <div class="browser-dot"></div>
-        <div class="browser-dot"></div>
-        <div class="browser-url">demo.intelibots.es</div>
+      <div class="demo-tabs" role="tablist" aria-label="Sector de negocio">
+        <button class="demo-tab active" data-demo="academia" role="tab" aria-selected="true">🎓 Academia</button>
+        <button class="demo-tab" data-demo="clinica" role="tab" aria-selected="false">🏥 Clínica</button>
+        <button class="demo-tab" data-demo="restaurante" role="tab" aria-selected="false">🍽️ Restaurante</button>
       </div>
-      <div class="demo-content">
-        <div class="demo-placeholder">
-          <strong>🤖 Agente IA — Demo interactiva</strong>
-          <p>Aquí se embebe el chatbot de Typebot con <code style="font-family:var(--mono);font-size:11px;color:var(--accent)">initStandard</code>.<br><br>El agente responde en tiempo real a las preguntas de tus visitantes, los cualifica y te envía el lead por WhatsApp.</p>
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+        <a href="contacto.html" class="btn-primary">Quiero esto en mi negocio →</a>
+        <p style="font-size:16px;color:var(--text-dim)">
+          ¿Tienes dudas? <a href="contacto.html" style="color:var(--accent);text-decoration:none;font-weight:600">Agenda una llamada de 20 min →</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Right: interactive chat widget -->
+    <div class="demo-widget reveal d2" role="region" aria-label="Chat demo interactivo">
+      <div class="demo-chat-header">
+        <div class="demo-chat-avatar" aria-hidden="true">🤖</div>
+        <div>
+          <div class="demo-chat-name" id="demoChatName">Agente Academia Preparat</div>
+          <div class="demo-chat-status">
+            <span class="demo-status-dot" aria-hidden="true"></span>En línea ahora
+          </div>
+        </div>
+        <div class="demo-sector-badge" id="demoSectorBadge">Academia</div>
+      </div>
+      <div class="demo-msgs" id="demoMsgs" aria-live="polite" aria-label="Conversación con el agente"></div>
+      <div class="demo-input-bar">
+        <input type="text" id="demoInput" placeholder="Escribe tu mensaje..." autocomplete="off" aria-label="Escribe un mensaje al agente demo">
+        <button id="demoSendBtn" aria-label="Enviar mensaje">↑</button>
+      </div>
+      <!-- WhatsApp lead notification -->
+      <div class="demo-wa" id="demoWa" aria-hidden="true">
+        <div class="demo-wa-icon">📱</div>
+        <div>
+          <div class="demo-wa-label">WHATSAPP · LEAD CAPTURADO</div>
+          <div class="demo-wa-text" id="demoWaText">Nuevo lead capturado</div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 

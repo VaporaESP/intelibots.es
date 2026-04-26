@@ -292,6 +292,135 @@
     window.sendWidget = sendWidget;
   }
 
+  // ── DEMO SECTION CHAT (index.html) ──────────────────
+  const demoMsgsEl  = document.getElementById('demoMsgs');
+  const demoInputEl = document.getElementById('demoInput');
+  const demoSendBtn = document.getElementById('demoSendBtn');
+  const demoWaEl    = document.getElementById('demoWa');
+  const demoWaText  = document.getElementById('demoWaText');
+  const demoChatName   = document.getElementById('demoChatName');
+  const demoSectorBadge = document.getElementById('demoSectorBadge');
+
+  if (demoMsgsEl) {
+    const demoCfg = {
+      academia: {
+        name: 'Agente Academia Preparat',
+        sector: 'Academia',
+        intro: '¡Hola! 👋 Soy el asistente de Academia Preparat. ¿En qué oposición estás interesado/a?',
+        replies: [
+          '¡Perfecto! Tenemos un programa específico para esa preparación 🎯 ¿Cuándo querrías empezar?',
+          'Genial. ¿Sería tu primera vez preparando esta oposición, o ya lo intentaste antes?',
+          'No te preocupes, empezamos desde cero. Para prepararte un plan personalizado, ¿me dejas tu nombre y teléfono? El director te llama en menos de 24h 📲',
+        ],
+        lead: '🔔 Nuevo lead — Academia\nInteresado/a en preparación de oposiciones. Solicita llamada.',
+      },
+      clinica: {
+        name: 'Agente Clínica Dental Smile',
+        sector: 'Clínica',
+        intro: '¡Hola! 😊 Soy el asistente de Clínica Dental Smile. ¿En qué puedo ayudarte hoy?',
+        replies: [
+          'Entendido. ¿Tienes alguna preferencia de día u horario para la visita?',
+          'Perfecto. ¿Es la primera vez que vienes a nuestra clínica o ya eres paciente?',
+          'Genial, te reservamos hueco. Dame tu nombre y teléfono para confirmar — te avisamos por WhatsApp en seguida 📅',
+        ],
+        lead: '🔔 Nuevo lead — Clínica\nPaciente solicita primera cita. Pendiente de confirmar horario.',
+      },
+      restaurante: {
+        name: 'Agente Restaurante La Plaza',
+        sector: 'Restaurante',
+        intro: '¡Buenas! 🍽️ Soy el asistente de Restaurante La Plaza. ¿Quieres hacer una reserva?',
+        replies: [
+          '¡Perfecto! ¿Para cuántas personas y qué día tienes en mente?',
+          'Anotado. ¿Hay alguna alergia o preferencia especial que debamos tener en cuenta?',
+          'Todo listo. Solo necesito tu nombre y teléfono para confirmar la reserva — te llegará un WhatsApp de confirmación 🙌',
+        ],
+        lead: '🔔 Nueva reserva — Restaurante\nCliente solicita mesa. Pendiente de confirmar.',
+      },
+    };
+
+    let currentDemo = 'academia';
+    let replyIdx    = 0;
+    let waitingReply = false;
+
+    function demoAddTyping() {
+      const d = document.createElement('div');
+      d.className = 'd-typing'; d.id = 'demoTyping';
+      d.innerHTML = '<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+      demoMsgsEl.appendChild(d);
+      demoMsgsEl.scrollTop = demoMsgsEl.scrollHeight;
+    }
+    function demoRemoveTyping() { document.getElementById('demoTyping')?.remove(); }
+    function demoAddMsg(text, type) {
+      const d = document.createElement('div');
+      d.className = `d-msg d-msg-${type}`;
+      d.textContent = text;
+      demoMsgsEl.appendChild(d);
+      demoMsgsEl.scrollTop = demoMsgsEl.scrollHeight;
+    }
+
+    function initDemo(key) {
+      currentDemo  = key;
+      replyIdx     = 0;
+      waitingReply = false;
+      demoMsgsEl.innerHTML = '';
+      demoWaEl?.classList.remove('show');
+      const cfg = demoCfg[key];
+      if (demoChatName)    demoChatName.textContent    = cfg.name;
+      if (demoSectorBadge) demoSectorBadge.textContent = cfg.sector;
+      demoAddTyping();
+      setTimeout(() => {
+        demoRemoveTyping();
+        demoAddMsg(cfg.intro, 'bot');
+      }, 700);
+    }
+
+    function sendDemoMsg() {
+      const val = demoInputEl.value.trim();
+      if (!val || waitingReply) return;
+      demoInputEl.value = '';
+      demoAddMsg(val, 'user');
+      waitingReply = true;
+      const cfg = demoCfg[currentDemo];
+      if (replyIdx < cfg.replies.length) {
+        demoAddTyping();
+        const delay = 800 + cfg.replies[replyIdx].length * 12;
+        setTimeout(() => {
+          demoRemoveTyping();
+          demoAddMsg(cfg.replies[replyIdx], 'bot');
+          replyIdx++;
+          waitingReply = false;
+          if (replyIdx === cfg.replies.length) {
+            setTimeout(() => {
+              if (demoWaText)  demoWaText.textContent = cfg.lead;
+              demoWaEl?.classList.add('show');
+              setTimeout(() => demoWaEl?.classList.remove('show'), 5000);
+            }, 1200);
+          }
+        }, delay);
+      } else {
+        demoAddMsg('¡Gracias! En breve nos pondremos en contacto contigo 😊', 'bot');
+        waitingReply = false;
+      }
+    }
+
+    document.querySelectorAll('.demo-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.demo-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        initDemo(tab.dataset.demo);
+      });
+    });
+
+    demoSendBtn?.addEventListener('click', sendDemoMsg);
+    demoInputEl?.addEventListener('keydown', e => { if (e.key === 'Enter') sendDemoMsg(); });
+
+    initDemo('academia');
+  }
+
   // ── ANIMATED HERO CHAT (index.html) ──────────────────
   const chatEl = document.getElementById('chatMessages');
   if (chatEl) {
