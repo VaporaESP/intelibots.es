@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="logo-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Páginas web profesionales con IA integrada — InteliBots. Diseño a medida, SEO y agente conversacional desde el primer día. Lista en 3 semanas.">
+<title>Páginas Web — InteliBots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ── HERO (split) ── */
+.hero {
+  padding: 140px 5vw 100px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  position: relative; overflow: hidden; min-height: 100svh;
+}
+.hero > *:not(.hero-bg) { position: relative; z-index: 1; }
+.hero-grid { mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%); }
+
+/* Web mockup in hero */
+.web-mockup {
+  background: white; border: 1.5px solid rgba(13,27,75,0.15); border-radius: 20px;
+  overflow: hidden; box-shadow: 0 12px 48px rgba(13,27,75,0.10);
+}
+.web-mockup-bar { background: var(--bg2); border-bottom: 1px solid rgba(13,27,75,0.08); padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+.wd { width: 10px; height: 10px; border-radius: 50%; }
+.wd:nth-child(1){background:#FF5F56} .wd:nth-child(2){background:#FFBD2E} .wd:nth-child(3){background:#27C93F}
+.wu { flex: 1; margin-left: 8px; background: white; border: 1px solid rgba(13,27,75,0.08); border-radius: 6px; padding: 5px 12px; font-size: 11px; color: var(--text-mid); font-family: var(--mono); }
+.mockup-screen { background: #f5f5f5; }
+.mockup-top { background: #fff; height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid #eee; }
+.mockup-top-logo { font-size: 14px; font-weight: 800; color: #111; letter-spacing: -0.5px; }
+.mockup-top-nav { display: flex; gap: 14px; }
+.mockup-top-nav span { font-size: 11px; color: #777; font-weight: 500; }
+.mockup-hero-inner { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 28px 20px; color: white; }
+.mockup-hero-inner h3 { font-size: 17px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
+.mockup-hero-inner p { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+.mockup-hero-btn { background: var(--accent); color: white; font-size: 10px; font-weight: 700; padding: 7px 14px; border-radius: 6px; display: inline-block; }
+.mockup-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 16px 20px; background: #f5f5f5; }
+.mockup-card { background: white; border-radius: 10px; padding: 14px; border: 1px solid #eee; }
+.mc-icon { font-size: 16px; margin-bottom: 6px; }
+.mc-title { font-size: 10px; font-weight: 700; color: #111; margin-bottom: 4px; }
+.mc-text { font-size: 9px; color: #888; line-height: 1.4; }
+.score-section { padding: 16px 20px; background: #fff; border-top: 1px solid #eee; }
+.score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.score-row:last-child { margin-bottom: 0; }
+.score-label { font-size: 9px; color: #555; min-width: 64px; font-weight: 600; }
+.score-bar { flex: 1; height: 4px; background: #eee; border-radius: 2px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 2px; background: var(--accent); width: 0; transition: width 1.5s ease; }
+.score-val { font-size: 9px; font-weight: 700; color: var(--accent); min-width: 20px; }
+
+/* ── INCLUDES ── */
+.includes-section { background: var(--bg2); }
+.includes-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 2px; margin-top: 56px; background: var(--border);
+  border-radius: 20px; overflow: hidden;
+}
+.inc-card { background: var(--bg2); padding: 36px 28px; position: relative; overflow: hidden; transition: background 0.3s; }
+.inc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.4s; }
+.inc-card:hover::before { opacity: 1; }
+.inc-card:hover { background: var(--bg3); }
+.inc-icon { font-size: 24px; margin-bottom: 16px; }
+.inc-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+.inc-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+/* ── PROCESS ── */
+.process-section { background: var(--bg); }
+.process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 64px; position: relative; }
+.process-steps::before { content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px; background: var(--border); }
+.ps { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+.ps-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--bg); border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; margin-bottom: 20px;
+  box-shadow: 0 0 0 6px var(--bg);
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.ps:hover .ps-num { background: var(--accent); border-color: var(--accent); color: #fff; }
+.ps h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+.ps p { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+/* ── DIFFERENTIATOR ── */
+.diff-section { background: var(--bg2); }
+.diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 64px; }
+.diff-list { display: flex; flex-direction: column; gap: 24px; }
+.diff-item { display: flex; gap: 16px; align-items: flex-start; }
+.diff-check { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-dim); border: 1px solid rgba(26,86,219,0.25); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+.diff-content h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+.diff-content p { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+.diff-visual { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 36px; }
+.compare-header { display: grid; grid-template-columns: 1fr 80px 80px; gap: 8px; font-size: 11px; font-weight: 700; color: var(--text-dim); letter-spacing: 0.04em; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+.compare-row { display: grid; grid-template-columns: 1fr 80px 80px; gap: 8px; font-size: 13px; align-items: center; padding: 6px 0; }
+.check-yes { text-align: center; color: var(--accent); font-weight: 700; }
+.check-no { text-align: center; color: var(--text-dim); }
+.check-maybe { text-align: center; color: var(--text-dim); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; gap: 48px; padding-top: 110px; }
+  .includes-grid { grid-template-columns: 1fr 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .process-steps::before { display: none; }
+  .diff-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .includes-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="InteliBots"></a>
+  <ul class="nav-links">
+    <li><a href="agentes-ia.html">Agentes IA</a></li>
+    <li><a href="paginas-web.html" class="active">Páginas Web</a></li>
+    <li><a href="demo.html">Demo</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <a href="contacto.html" class="nav-cta">Agendar llamada →</a>
+  <button class="hamburger" id="hbg" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<nav class="mobile-menu" id="mob" aria-hidden="true">
+  <a href="agentes-ia.html" onclick="closeMob()">Agentes IA</a>
+  <a href="paginas-web.html" onclick="closeMob()">Páginas Web</a>
+  <a href="demo.html" onclick="closeMob()">Demo</a>
+  <a href="contacto.html" onclick="closeMob()">Contacto</a>
+  <a href="contacto.html" class="mob-cta" onclick="closeMob()">Agendar llamada →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><div class="hero-grid"></div></div>
+  <div>
+    <div class="hero-badge">🌐 Diseño &amp; Desarrollo Web</div>
+    <h1 class="hero-h1">Una web que trabaja para ti — no solo que<br><em>te representa</em></h1>
+    <p class="hero-sub">Diseñamos y desarrollamos páginas web profesionales en WordPress, optimizadas para captar clientes — con opción de incluir un agente IA desde el primer día.</p>
+    <div class="hero-actions">
+      <a href="contacto.html" class="btn-primary">Ver precio →</a>
+      <a href="demo.html" class="btn-ghost">Ver demo con IA</a>
+    </div>
+  </div>
+  <div class="web-mockup reveal d1">
+    <div class="web-mockup-bar">
+      <div class="wd"></div><div class="wd"></div><div class="wd"></div>
+      <div class="wu">tunegocio.es</div>
+    </div>
+    <div class="mockup-screen">
+      <div class="mockup-top">
+        <div class="mockup-top-logo">Tu Empresa</div>
+        <div class="mockup-top-nav"><span>Servicios</span><span>Nosotros</span><span>Contacto</span></div>
+      </div>
+      <div class="mockup-hero-inner">
+        <h3>La mejor solución para<br>tu negocio</h3>
+        <p>Atención personalizada · Resultados garantizados · Desde 2010</p>
+        <div class="mockup-hero-btn">Solicitar información →</div>
+      </div>
+      <div class="mockup-cards">
+        <div class="mockup-card"><div class="mc-icon">⚡</div><div class="mc-title">Rápido</div><div class="mc-text">Carga en menos de 2 segundos</div></div>
+        <div class="mockup-card"><div class="mc-icon">📱</div><div class="mc-title">Responsive</div><div class="mc-text">Perfecto en móvil y tablet</div></div>
+        <div class="mockup-card"><div class="mc-icon">🔍</div><div class="mc-title">SEO</div><div class="mc-text">Posicionado en Google</div></div>
+      </div>
+      <div class="score-section">
+        <div class="score-row"><span class="score-label">Rendimiento</span><div class="score-bar"><div class="score-fill" data-w="96"></div></div><span class="score-val">96</span></div>
+        <div class="score-row"><span class="score-label">SEO</span><div class="score-bar"><div class="score-fill" data-w="98"></div></div><span class="score-val">98</span></div>
+        <div class="score-row"><span class="score-label">Accesibilidad</span><div class="score-bar"><div class="score-fill" data-w="94"></div></div><span class="score-val">94</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUDES -->
+<section class="includes-section">
+  <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="s-label" style="justify-content:center">Qué incluye</div>
+    <h2 class="s-title">Todo lo que necesita<br><em>tu web</em></h2>
+  </div>
+  <div class="includes-grid">
+    <div class="inc-card reveal"><div class="inc-icon">🎨</div><div class="inc-name">Diseño a medida</div><p class="inc-text">Diseño único para tu marca. No usamos plantillas genéricas — cada web refleja la identidad de tu negocio.</p></div>
+    <div class="inc-card reveal d1"><div class="inc-icon">📱</div><div class="inc-name">100% Responsive</div><p class="inc-text">Perfecta en móvil, tablet y escritorio. Más del 70% de las visitas vienen desde el móvil.</p></div>
+    <div class="inc-card reveal d2"><div class="inc-icon">⚡</div><div class="inc-name">Velocidad optimizada</div><p class="inc-text">Carga en menos de 2 segundos. Google premia las webs rápidas con mejor posicionamiento.</p></div>
+    <div class="inc-card reveal"><div class="inc-icon">🔍</div><div class="inc-name">SEO básico</div><p class="inc-text">Configuración completa para que Google te encuentre: metadatos, sitemap, velocidad y estructura correcta.</p></div>
+    <div class="inc-card reveal d1"><div class="inc-icon">🤖</div><div class="inc-name">Agente IA opcional</div><p class="inc-text">Añade el agente conversacional desde el día 1. Tu web capta leads automáticamente mientras tú descansas.</p></div>
+    <div class="inc-card reveal d2"><div class="inc-icon">🛡️</div><div class="inc-name">Hosting + mantenimiento</div><p class="inc-text">Incluimos el primer año de hosting y mantenimiento. Tu web siempre actualizada y segura.</p></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="s-label" style="justify-content:center">Proceso</div>
+    <h2 class="s-title">Tu web lista en<br><em>3 semanas</em></h2>
+  </div>
+  <div class="process-steps">
+    <div class="ps reveal"><div class="ps-num">01</div><h3>Briefing</h3><p>Hablamos de tu negocio, objetivos, colores y referencias. 60 minutos que lo cambian todo.</p></div>
+    <div class="ps reveal d1"><div class="ps-num">02</div><h3>Diseño</h3><p>Te presentamos el diseño para tu aprobación. Revisiones hasta que quede perfecto.</p></div>
+    <div class="ps reveal d2"><div class="ps-num">03</div><h3>Desarrollo</h3><p>Programamos tu web en WordPress. Rápida, segura y fácil de editar tú mismo.</p></div>
+    <div class="ps reveal d3"><div class="ps-num">04</div><h3>Entrega</h3><p>Subimos la web, configuramos el dominio y te formamos para gestionarla tú solo.</p></div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATOR -->
+<section class="diff-section">
+  <div class="reveal">
+    <div class="s-label">Lo que nos diferencia</div>
+    <h2 class="s-title">No somos una agencia<br><em>de webs cualquiera</em></h2>
+  </div>
+  <div class="diff-grid">
+    <div class="diff-list reveal">
+      <div class="diff-item">
+        <div class="diff-check">✓</div>
+        <div class="diff-content"><h4>Especialistas en captación de leads</h4><p>Cada web que diseñamos está pensada para convertir — no solo para verse bien. CTA claros, formularios inteligentes, flujos optimizados.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-check">✓</div>
+        <div class="diff-content"><h4>IA integrada desde el primer día</h4><p>A diferencia de otras agencias, cada web puede incluir un agente de IA que capta leads 24/7. Una ventaja competitiva real desde el lanzamiento.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-check">✓</div>
+        <div class="diff-content"><h4>Entregamos en 3 semanas, no en 3 meses</h4><p>Proceso ágil y comunicación directa. Sin intermediarios, sin burocracia, sin sorpresas.</p></div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-check">✓</div>
+        <div class="diff-content"><h4>Precio transparente, sin letra pequeña</h4><p>Lo que acordamos es lo que pagas. Sin costes ocultos, sin extras de última hora.</p></div>
+      </div>
+    </div>
+    <div class="diff-visual reveal d2">
+      <div style="font-size:11px;color:var(--text-dim);font-family:var(--mono);margin-bottom:20px;letter-spacing:0.06em">COMPARATIVA</div>
+      <div class="compare-header">
+        <span></span>
+        <span style="text-align:center;color:var(--accent)">InteliBots</span>
+        <span style="text-align:center">Otros</span>
+      </div>
+      <div class="compare-row"><span style="color:var(--text-mid)">Diseño a medida</span><span class="check-yes">✓</span><span class="check-maybe">✓</span></div>
+      <div class="compare-row"><span style="color:var(--text-mid)">IA integrada</span><span class="check-yes">✓</span><span class="check-no">✗</span></div>
+      <div class="compare-row"><span style="color:var(--text-mid)">Entrega &lt;3 semanas</span><span class="check-yes">✓</span><span class="check-no">✗</span></div>
+      <div class="compare-row"><span style="color:var(--text-mid)">SEO incluido</span><span class="check-yes">✓</span><span class="check-maybe">~</span></div>
+      <div class="compare-row"><span style="color:var(--text-mid)">Captación leads</span><span class="check-yes">✓</span><span class="check-maybe">~</span></div>
+      <div class="compare-row"><span style="color:var(--text-mid)">Precio transparente</span><span class="check-yes">✓</span><span class="check-maybe">~</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section style="padding:100px 5vw;background:var(--bg)">
+  <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="s-label" style="justify-content:center">Precios</div>
+    <h2 class="s-title">Inversión <em>transparente</em></h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal d1">
+      <div class="price-name">Web Profesional</div>
+      <div class="price-num">Desde <span>1.200€</span></div>
+      <div class="price-period">pago único · hosting primer año incluido</div>
+      <div class="price-feats">
+        <div class="price-feat">Diseño a medida en WordPress</div>
+        <div class="price-feat">Hasta 5 páginas incluidas</div>
+        <div class="price-feat">100% responsive (móvil + tablet)</div>
+        <div class="price-feat">SEO básico configurado</div>
+        <div class="price-feat">Formulario de contacto</div>
+        <div class="price-feat">Dominio + hosting primer año</div>
+      </div>
+      <a href="contacto.html" class="btn-ghost" style="width:100%;justify-content:center">Consultar →</a>
+      <p class="price-note">Precio final según número de páginas y funcionalidades. Sin compromiso.</p>
+    </div>
+    <div class="price-card featured reveal d2">
+      <div class="price-badge">⭐ Más elegido</div>
+      <div class="price-name">Web + Agente IA</div>
+      <div class="price-num">Desde <span>2.000€</span></div>
+      <div class="price-period">setup · + 180€/mes mantenimiento</div>
+      <div class="price-feats">
+        <div class="price-feat">Todo lo del plan Web Profesional</div>
+        <div class="price-feat">Agente IA integrado desde el día 1</div>
+        <div class="price-feat">Captación de leads 24/7 automática</div>
+        <div class="price-feat">Notificaciones WhatsApp y email</div>
+        <div class="price-feat">Configuración + formación incluidas</div>
+        <div class="price-feat">Mantenimiento y mejoras mensuales</div>
+      </div>
+      <a href="contacto.html" class="btn-primary" style="width:100%;justify-content:center">Agendar llamada →</a>
+      <p class="price-note">Precio final según complejidad. Primera consulta gratuita y sin compromiso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" style="background:var(--bg2)">
+  <div class="reveal">
+    <div class="s-label" style="justify-content:center">¿Empezamos?</div>
+    <h2 class="cta-title">Tu web lista en<br><em>3 semanas</em></h2>
+    <p class="cta-sub">Cuéntanos tu proyecto y en 48 horas te preparamos una propuesta personalizada.</p>
+    <div class="cta-actions">
+      <a href="contacto.html" class="btn-primary">Pedir presupuesto →</a>
+      <a href="agentes-ia.html" class="btn-ghost">Ver también Agentes IA</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><img src="logo.png" alt="InteliBots"></a>
+      <p>Agencia especializada en agentes de inteligencia artificial y páginas web para pequeñas y medianas empresas en España.</p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/intelibots/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Servicios</h4><ul><li><a href="agentes-ia.html">Agentes IA</a></li><li><a href="paginas-web.html">Páginas Web</a></li><li><a href="demo.html">Demo</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="contacto.html">Contacto</a></li><li><a href="https://intelibots.es/como-funciona/">Cómo funciona</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Aviso legal</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 InteliBots. Todos los derechos reservados.</span>
+    <span>Hecho con IA en España 🇪🇸</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
