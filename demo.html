@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="logo-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Demo interactiva — Habla con el agente de IA de InteliBots como si fueras un cliente real. Ve exactamente lo que verían los clientes de tu negocio.">
+<title>Demo — InteliBots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ── HERO (centrado) ── */
+.hero {
+  padding: 140px 5vw 80px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero-badge { justify-content: center; margin-bottom: 32px; }
+.hero-h1 { max-width: 900px; margin: 0 auto 28px; font-size: clamp(52px, 7.5vw, 96px); }
+.hero-sub { max-width: 560px; margin: 0 auto 32px; font-size: clamp(17px, 1.8vw, 21px); }
+.demo-urgency {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 15px; color: var(--text-mid);
+}
+.demo-urgency-dot { width: 8px; height: 8px; border-radius: 50%; background: #FF6B35; flex-shrink: 0; animation: pulse-red 1.5s infinite; }
+
+/* ── CHAT SECTION ── */
+.chat-section { background: var(--bg2); padding: 80px 5vw 100px; }
+.chat-wrap {
+  max-width: 860px; margin: 0 auto;
+  background: white;
+  border-radius: 24px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(13,27,75,0.12), 0 4px 16px rgba(13,27,75,0.06);
+  border: 1.5px solid rgba(13,27,75,0.10);
+}
+
+/* Browser bar */
+.demo-browser-bar {
+  background: var(--bg3); border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.db-dots { display: flex; gap: 7px; }
+.db-dot { width: 12px; height: 12px; border-radius: 50%; }
+.db-dot:nth-child(1){ background: #FF5F56; }
+.db-dot:nth-child(2){ background: #FFBD2E; }
+.db-dot:nth-child(3){ background: #27C93F; }
+.db-url {
+  flex: 1; margin: 0 12px;
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 13px; color: var(--text-mid);
+  font-family: var(--mono);
+}
+.db-live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: #22c55e;
+  white-space: nowrap;
+}
+.db-live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)} 50%{box-shadow:0 0 0 6px transparent} }
+
+/* Chat messages area */
+.demo-chat-area {
+  min-height: 440px; max-height: 440px;
+  overflow-y: auto; padding: 32px 32px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  background: var(--bg2);
+  scroll-behavior: smooth;
+}
+.demo-chat-area::-webkit-scrollbar { width: 3px; }
+.demo-chat-area::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.dm { max-width: 75%; border-radius: 18px; padding: 14px 18px; font-size: 16px; line-height: 1.6; animation: msgIn 0.3s ease both; }
+@keyframes msgIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+.dm-bot {
+  background: white; border: 1px solid var(--border); color: var(--text);
+  border-bottom-left-radius: 4px; align-self: flex-start;
+  box-shadow: 0 2px 8px rgba(13,27,75,0.06);
+}
+.dm-user {
+  background: var(--accent); color: white;
+  border-bottom-right-radius: 4px; align-self: flex-end;
+}
+.dm-typing {
+  align-self: flex-start;
+  background: white; border: 1px solid var(--border);
+  padding: 16px 20px; border-radius: 18px; border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(13,27,75,0.06);
+}
+
+/* Quick replies */
+.demo-quick-replies {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 12px 32px 20px; background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.demo-qr {
+  padding: 8px 16px; border-radius: 100px;
+  border: 1.5px solid var(--border2);
+  background: white; color: var(--text-mid);
+  font-size: 14px; font-weight: 600;
+  font-family: var(--sans); cursor: pointer;
+  transition: all 0.2s;
+}
+.demo-qr:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.demo-qr.hidden { display: none; }
+
+/* Input bar */
+.demo-input-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-top: 1px solid var(--border);
+  background: white;
+}
+.demo-input-row input {
+  flex: 1; border: none; outline: none;
+  font-size: 16px; color: var(--text);
+  font-family: var(--sans);
+  background: transparent;
+}
+.demo-input-row input::placeholder { color: var(--text-dim); }
+.demo-send {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 18px; flex-shrink: 0;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.demo-send:hover { transform: scale(1.08); box-shadow: 0 0 32px var(--accent-glow); }
+
+/* WhatsApp notification */
+.demo-wa-notif {
+  position: fixed; bottom: 32px; right: -380px;
+  background: white; border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px 20px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 12px 48px rgba(13,27,75,0.18);
+  width: 340px; z-index: 200;
+  transition: right 0.55s cubic-bezier(0.34,1.56,0.64,1);
+}
+.demo-wa-notif.show { right: 28px; }
+.demo-wa-notif-icon { font-size: 28px; flex-shrink: 0; }
+.demo-wa-notif-label { font-size: 11px; font-weight: 700; color: #22c55e; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.demo-wa-notif-text { font-size: 14px; color: var(--text); line-height: 1.4; }
+
+/* ── CTA ── */
+.demo-cta {
+  background: var(--bg); text-align: center;
+  padding: 100px 5vw;
+  position: relative; overflow: hidden;
+}
+.demo-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(26,86,219,0.08) 0%, transparent 100%);
+}
+.demo-cta > * { position: relative; z-index: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .demo-chat-area { min-height: 360px; max-height: 360px; padding: 20px 16px 12px; }
+  .demo-quick-replies { padding: 10px 16px 16px; }
+  .demo-input-row { padding: 12px 16px; }
+  .demo-wa-notif { width: calc(100vw - 32px); right: -110%; }
+  .demo-wa-notif.show { right: 16px; }
+  .db-url { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="InteliBots"></a>
+  <ul class="nav-links">
+    <li><a href="agentes-ia.html">Agentes IA</a></li>
+    <li><a href="paginas-web.html">Páginas Web</a></li>
+    <li><a href="demo.html" class="active">Demo</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <a href="contacto.html" class="nav-cta">Agendar llamada →</a>
+  <button class="hamburger" id="hbg" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="mobile-menu" id="mob" aria-hidden="true">
+  <a href="agentes-ia.html" onclick="closeMob()">Agentes IA</a>
+  <a href="paginas-web.html" onclick="closeMob()">Páginas Web</a>
+  <a href="demo.html" onclick="closeMob()">Demo</a>
+  <a href="contacto.html" onclick="closeMob()">Contacto</a>
+  <a href="contacto.html" class="mob-cta" onclick="closeMob()">Agendar llamada →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+  </div>
+  <div class="hero-badge reveal">🎯 Demo interactiva — Academia de oposiciones</div>
+  <h1 class="hero-h1 reveal d1">
+    Así capta alumnos una academia<br>con IA — <em>pruébalo tú mismo</em>
+  </h1>
+  <p class="hero-sub reveal d2">
+    Habla con el agente como si fueras un alumno interesado en oposiciones. Es exactamente lo que verían los alumnos de tu academia.
+  </p>
+  <div class="demo-urgency reveal d3">
+    <span class="demo-urgency-dot" aria-hidden="true"></span>
+    <span>Este mes quedan <strong style="color:var(--text)">2 plazas</strong> para onboarding en mayo. Cierre el 30 de abril.</span>
+  </div>
+</section>
+
+<!-- CHAT DEMO -->
+<section class="chat-section">
+  <div class="chat-wrap reveal" role="region" aria-label="Demo interactiva del agente de IA">
+
+    <!-- Browser bar -->
+    <div class="demo-browser-bar" aria-hidden="true">
+      <div class="db-dots">
+        <div class="db-dot"></div>
+        <div class="db-dot"></div>
+        <div class="db-dot"></div>
+      </div>
+      <div class="db-url">demo.intelibots.es · Academia Preparat</div>
+      <div class="db-live">
+        <span class="db-live-dot"></span>En vivo
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="demo-chat-area" id="demoChatArea" aria-live="polite" aria-label="Conversación con el agente"></div>
+
+    <!-- Quick replies (opciones de oposición) -->
+    <div class="demo-quick-replies" id="demoQuickReplies" aria-label="Respuestas rápidas">
+      <button class="demo-qr" data-text="Mossos d'Esquadra">Mossos d'Esquadra</button>
+      <button class="demo-qr" data-text="Policía Nacional">Policía Nacional</button>
+      <button class="demo-qr" data-text="Guardia Urbana">Guardia Urbana</button>
+      <button class="demo-qr" data-text="Correos">Correos</button>
+    </div>
+
+    <!-- Input -->
+    <div class="demo-input-row">
+      <input
+        type="text"
+        id="demoFullInput"
+        placeholder="Escribe como si fueras un alumno interesado..."
+        autocomplete="off"
+        aria-label="Mensaje al agente"
+      >
+      <button class="demo-send" id="demoFullSend" aria-label="Enviar mensaje">↑</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- WA NOTIFICATION -->
+<div class="demo-wa-notif" id="demoWaNotif" aria-hidden="true">
+  <div class="demo-wa-notif-icon">📱</div>
+  <div>
+    <div class="demo-wa-notif-label">WhatsApp · Lead enviado</div>
+    <div class="demo-wa-notif-text" id="demoWaNotifText">Nuevo contacto capturado</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="demo-cta">
+  <div class="reveal">
+    <div class="s-label" style="justify-content:center">¿Lo quieres para tu negocio?</div>
+    <h2 class="cta-title" style="font-size:clamp(40px,5.5vw,72px)">
+      En 2 semanas tu negocio<br>capta leads <em>solo</em>
+    </h2>
+    <p class="cta-sub" style="margin-top:20px">
+      Este agente, pero entrenado con la información de tu empresa y conectado a tu WhatsApp.
+    </p>
+    <div class="cta-actions" style="margin-top:40px">
+      <a href="contacto.html" class="btn-primary">Quiero esto para mi negocio →</a>
+      <a href="agentes-ia.html" class="btn-ghost">Ver cómo funciona</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><img src="logo.png" alt="InteliBots"></a>
+      <p>Agencia especializada en agentes de inteligencia artificial y páginas web que convierten visitantes en clientes.</p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/company/intelibots/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Servicios</h4><ul><li><a href="agentes-ia.html">Agentes de IA</a></li><li><a href="paginas-web.html">Páginas Web</a></li><li><a href="demo.html">Demo</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="contacto.html">Contacto</a></li><li><a href="#">Cómo funciona</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Aviso legal</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 InteliBots. Todos los derechos reservados.</span>
+    <span>Hecho con IA en España 🇪🇸</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+(function () {
+
+  const chatArea   = document.getElementById('demoChatArea');
+  const inputEl    = document.getElementById('demoFullInput');
+  const sendBtn    = document.getElementById('demoFullSend');
+  const qrContainer = document.getElementById('demoQuickReplies');
+  const waNotif    = document.getElementById('demoWaNotif');
+  const waNotifText = document.getElementById('demoWaNotifText');
+
+  if (!chatArea) return;
+
+  // Scripted conversation
+  const script = [
+    // [0] intro — shown on load
+    { from: 'bot', text: '¡Hola! 👋 Soy el asistente de Academia Preparat. Estoy aquí para ayudarte a encontrar el mejor curso para preparar tus oposiciones. ¿Cuál te interesa?' },
+    // [1] after user picks oposición
+    { from: 'bot', text: null, dynamic: true }, // filled dynamically
+    // [2]
+    { from: 'bot', text: '¿Tienes experiencia previa preparando esta oposición o sería tu primera vez?' },
+    // [3]
+    { from: 'bot', text: 'Genial, tenemos el programa perfecto para ti 🎯 Para prepararte un plan personalizado, ¿me dejas tu nombre y número de teléfono? El director te llama en menos de 24h.' },
+    // [4] after lead capture
+    { from: 'bot', text: '¡Perfecto! 🙌 El director de Academia Preparat recibirá tu contacto ahora mismo por WhatsApp. Espera su llamada pronto.' },
+  ];
+
+  let step        = 0;
+  let chosenOpos  = '';
+  let waiting     = false;
+
+  function addTyping() {
+    const d = document.createElement('div');
+    d.className = 'dm-typing'; d.id = 'fullTyping';
+    d.innerHTML = '<div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }
+  function removeTyping() { document.getElementById('fullTyping')?.remove(); }
+
+  function addMsg(text, from) {
+    const d = document.createElement('div');
+    d.className = `dm dm-${from}`;
+    d.textContent = text;
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+  }
+
+  function botSay(text, delay) {
+    waiting = true;
+    addTyping();
+    setTimeout(() => {
+      removeTyping();
+      addMsg(text, 'bot');
+      waiting = false;
+    }, delay || 900 + text.length * 14);
+  }
+
+  function hideQuickReplies() {
+    qrContainer.querySelectorAll('.demo-qr').forEach(b => b.classList.add('hidden'));
+  }
+
+  function showWaNotif(text) {
+    waNotifText.textContent = text;
+    waNotif.classList.add('show');
+    waNotif.setAttribute('aria-hidden', 'false');
+    setTimeout(() => {
+      waNotif.classList.remove('show');
+      waNotif.setAttribute('aria-hidden', 'true');
+    }, 6000);
+  }
+
+  function handleUserMsg(text) {
+    if (waiting || !text.trim()) return;
+    addMsg(text, 'user');
+    hideQuickReplies();
+
+    step++;
+    if (step === 1) {
+      // User picked / typed oposición
+      chosenOpos = text;
+      const reply = `¡Perfecto! Tenemos un programa completo para preparar ${chosenOpos} 🎯 ¿Cuándo querrías empezar? ¿Tienes alguna fecha límite en mente?`;
+      botSay(reply);
+    } else if (step === 2) {
+      botSay(script[2].text);
+    } else if (step === 3) {
+      botSay(script[3].text);
+    } else if (step === 4) {
+      // Lead captured
+      const leadText = `Nuevo lead — ${chosenOpos}\nContacto: "${text}" · Solicita llamada.`;
+      setTimeout(() => {
+        botSay(script[4].text, 600);
+        setTimeout(() => showWaNotif(leadText), 1800);
+      }, 200);
+    } else {
+      botSay('¡Muchas gracias! Quedamos en contacto 😊', 700);
+    }
+  }
+
+  // Quick reply buttons
+  qrContainer.querySelectorAll('.demo-qr').forEach(btn => {
+    btn.addEventListener('click', () => {
+      handleUserMsg(btn.dataset.text);
+    });
+  });
+
+  // Send button / Enter
+  sendBtn.addEventListener('click', () => {
+    handleUserMsg(inputEl.value.trim());
+    inputEl.value = '';
+  });
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      handleUserMsg(inputEl.value.trim());
+      inputEl.value = '';
+    }
+  });
+
+  // Init: show intro message
+  setTimeout(() => botSay(script[0].text, 800), 500);
+
+})();
+</script>
+</body>
+</html>
