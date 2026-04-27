@@ -328,11 +328,11 @@ section { padding: 100px 5vw; }
 
 /* ── WHATSAPP FLOAT ── */
 .wa-float {
-  position: fixed; bottom: 28px; right: 28px; z-index: 500;
-  width: 60px; height: 60px; border-radius: 50%;
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  width: 48px; height: 48px; border-radius: 50%;
   background: #25D366;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  box-shadow: 0 4px 16px rgba(37,211,102,0.45);
   text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
   animation: wa-appear 0.5s 1.5s cubic-bezier(0.34,1.56,0.64,1) both;
@@ -345,7 +345,7 @@ section { padding: 100px 5vw; }
   transform: scale(1.12);
   box-shadow: 0 6px 32px rgba(37,211,102,0.60);
 }
-.wa-float svg { width: 32px; height: 32px; fill: white; display: block; }
+.wa-float svg { width: 24px; height: 24px; fill: white; display: block; }
 .wa-float-tip {
   position: absolute; right: 72px; top: 50%; transform: translateY(-50%);
   background: #111827; color: white;
