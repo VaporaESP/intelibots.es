@@ -326,6 +326,51 @@ section { padding: 100px 5vw; }
 .urgency-dot { width: 6px; height: 6px; border-radius: 50%; background: #FF6B35; animation: pulse-red 1.5s infinite; }
 @keyframes pulse-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+/* ── WHATSAPP FLOAT ── */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 500;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: wa-appear 0.5s 1.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes wa-appear {
+  from { opacity:0; transform:scale(0.5) translateY(20px); }
+  to   { opacity:1; transform:scale(1)   translateY(0); }
+}
+.wa-float:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 32px rgba(37,211,102,0.60);
+}
+.wa-float svg { width: 32px; height: 32px; fill: white; display: block; }
+.wa-float-tip {
+  position: absolute; right: 72px; top: 50%; transform: translateY(-50%);
+  background: #111827; color: white;
+  font-size: 13px; font-weight: 600;
+  padding: 8px 14px; border-radius: 8px;
+  white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s;
+  font-family: var(--sans);
+}
+.wa-float-tip::after {
+  content: ''; position: absolute;
+  left: 100%; top: 50%; transform: translateY(-50%);
+  border: 6px solid transparent; border-left-color: #111827;
+}
+.wa-float:hover .wa-float-tip { opacity: 1; }
+.wa-float-pulse {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: #25D366; opacity: 0;
+  animation: wa-pulse 2.5s ease-out 2s infinite;
+}
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
 /* ── FOOTER ── */
 footer {
   background: var(--bg2); border-top: 1px solid var(--border);
