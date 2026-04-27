@@ -320,22 +320,10 @@
   const demoSectorBadge = document.getElementById('demoSectorBadge');
 
   if (demoMsgsEl) {
-    const demoCfg = {
-      academia: {
-        name: 'Agente Academia Preparat',
-        sector: 'Academia',
-        intro: '¡Hola! 👋 Soy el asistente de Academia Preparat. ¿En qué oposición estás interesado/a?',
-        replies: [
-          '¡Perfecto! Tenemos un programa específico para esa preparación 🎯 ¿Cuándo querrías empezar?',
-          'Genial. ¿Sería tu primera vez preparando esta oposición, o ya lo intentaste antes?',
-          'No te preocupes, empezamos desde cero. Para prepararte un plan personalizado, ¿me dejas tu nombre y teléfono? El director te llama en menos de 24h 📲',
-        ],
-        lead: '🔔 Nuevo lead — Academia\nInteresado/a en preparación de oposiciones. Solicita llamada.',
-      },
-    };
+    const TYPEBOT_ID  = 'preparat-ky3rudb';
+    const TYPEBOT_API = `https://typebot.io/api/v1/typebots/${TYPEBOT_ID}`;
 
-    let currentDemo = 'academia';
-    let replyIdx    = 0;
+    let tbSessionId  = null;
     let waitingReply = false;
 
     function demoAddTyping() {
@@ -354,67 +342,71 @@
       demoMsgsEl.scrollTop = demoMsgsEl.scrollHeight;
     }
 
-    function initDemo(key) {
-      currentDemo  = key;
-      replyIdx     = 0;
+    function tbExtract(messages) {
+      return (messages || [])
+        .filter(m => m.type === 'text')
+        .map(m => {
+          try {
+            return (m.content.richText || [])
+              .map(b => (b.children || []).map(c => c.text || '').join(''))
+              .join('\n').trim();
+          } catch { return ''; }
+        })
+        .filter(Boolean);
+    }
+
+    async function initDemo() {
+      tbSessionId  = null;
       waitingReply = false;
       demoMsgsEl.innerHTML = '';
       demoWaEl?.classList.remove('show');
-      const cfg = demoCfg[key];
-      if (demoChatName)    demoChatName.textContent    = cfg.name;
-      if (demoSectorBadge) demoSectorBadge.textContent = cfg.sector;
-      demoAddTyping();
-      setTimeout(() => {
-        demoRemoveTyping();
-        demoAddMsg(cfg.intro, 'bot');
-      }, 700);
-    }
+      if (demoChatName)    demoChatName.textContent    = 'Agente Academia Preparat';
+      if (demoSectorBadge) demoSectorBadge.textContent = 'Academia';
 
-    function sendDemoMsg() {
-      const val = demoInputEl.value.trim();
-      if (!val || waitingReply) return;
-      demoInputEl.value = '';
-      demoAddMsg(val, 'user');
-      waitingReply = true;
-      const cfg = demoCfg[currentDemo];
-      if (replyIdx < cfg.replies.length) {
-        demoAddTyping();
-        const delay = 800 + cfg.replies[replyIdx].length * 12;
-        setTimeout(() => {
-          demoRemoveTyping();
-          demoAddMsg(cfg.replies[replyIdx], 'bot');
-          replyIdx++;
-          waitingReply = false;
-          if (replyIdx === cfg.replies.length) {
-            setTimeout(() => {
-              if (demoWaText)  demoWaText.textContent = cfg.lead;
-              demoWaEl?.classList.add('show');
-              setTimeout(() => demoWaEl?.classList.remove('show'), 5000);
-            }, 1200);
-          }
-        }, delay);
-      } else {
-        demoAddMsg('¡Gracias! En breve nos pondremos en contacto contigo 😊', 'bot');
-        waitingReply = false;
+      demoAddTyping();
+      try {
+        const res  = await fetch(`${TYPEBOT_API}/startChat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+        const data = await res.json();
+        tbSessionId = data.sessionId;
+        demoRemoveTyping();
+        tbExtract(data.messages).forEach(t => demoAddMsg(t, 'bot'));
+      } catch {
+        demoRemoveTyping();
+        demoAddMsg('¡Hola! 👋 Soy el asistente de Academia Preparat. ¿En qué oposición estás interesado/a?', 'bot');
       }
     }
 
-    document.querySelectorAll('.demo-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.demo-tab').forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
+    async function sendDemoMsg() {
+      const val = demoInputEl?.value.trim();
+      if (!val || waitingReply || !tbSessionId) return;
+      demoInputEl.value = '';
+      demoAddMsg(val, 'user');
+      waitingReply = true;
+      demoAddTyping();
+      try {
+        const res  = await fetch(`${TYPEBOT_API}/continueChat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId: tbSessionId, message: val }),
         });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-        initDemo(tab.dataset.demo);
-      });
-    });
+        const data = await res.json();
+        demoRemoveTyping();
+        tbExtract(data.messages).forEach(t => demoAddMsg(t, 'bot'));
+      } catch {
+        demoRemoveTyping();
+        demoAddMsg('Lo siento, ha habido un problema de conexión. Inténtalo de nuevo.', 'bot');
+      }
+      waitingReply = false;
+    }
 
     demoSendBtn?.addEventListener('click', sendDemoMsg);
     demoInputEl?.addEventListener('keydown', e => { if (e.key === 'Enter') sendDemoMsg(); });
 
-    initDemo('academia');
+    initDemo();
   }
 
   // ── ANIMATED HERO CHAT (index.html) ──────────────────
