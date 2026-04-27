@@ -332,16 +332,16 @@
         ],
         lead: '🔔 Nuevo lead — Academia\nInteresado/a en preparación de oposiciones. Solicita llamada.',
       },
-      clinica: {
-        name: 'Agente Clínica Dental Smile',
-        sector: 'Clínica',
-        intro: '¡Hola! 😊 Soy el asistente de Clínica Dental Smile. ¿En qué puedo ayudarte hoy?',
+      asesoria: {
+        name: 'Agente Asesoría Pérez & Asociados',
+        sector: 'Asesoría',
+        intro: '¡Buenos días! 👋 Soy el asistente de Asesoría Pérez & Asociados. ¿En qué podemos ayudarte?',
         replies: [
-          'Entendido. ¿Tienes alguna preferencia de día u horario para la visita?',
-          'Perfecto. ¿Es la primera vez que vienes a nuestra clínica o ya eres paciente?',
-          'Genial, te reservamos hueco. Dame tu nombre y teléfono para confirmar — te avisamos por WhatsApp en seguida 📅',
+          'Entendido. ¿Tienes ya constituida la empresa o estás en proceso de crearla?',
+          'Perfecto. ¿Es urgente o puedes esperar a la próxima semana para hablar con un asesor?',
+          'Genial. Déjame tu nombre y teléfono y el asesor te llamará hoy mismo para una consulta gratuita 📞',
         ],
-        lead: '🔔 Nuevo lead — Clínica\nPaciente solicita primera cita. Pendiente de confirmar horario.',
+        lead: '🔔 Nuevo lead — Asesoría\nCliente solicita consulta. Pendiente de llamada.',
       },
       restaurante: {
         name: 'Agente Restaurante La Plaza',
