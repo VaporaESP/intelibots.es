@@ -332,28 +332,6 @@
         ],
         lead: '🔔 Nuevo lead — Academia\nInteresado/a en preparación de oposiciones. Solicita llamada.',
       },
-      asesoria: {
-        name: 'Agente Asesoría Pérez & Asociados',
-        sector: 'Asesoría',
-        intro: '¡Buenos días! 👋 Soy el asistente de Asesoría Pérez & Asociados. ¿En qué podemos ayudarte?',
-        replies: [
-          'Entendido. ¿Tienes ya constituida la empresa o estás en proceso de crearla?',
-          'Perfecto. ¿Es urgente o puedes esperar a la próxima semana para hablar con un asesor?',
-          'Genial. Déjame tu nombre y teléfono y el asesor te llamará hoy mismo para una consulta gratuita 📞',
-        ],
-        lead: '🔔 Nuevo lead — Asesoría\nCliente solicita consulta. Pendiente de llamada.',
-      },
-      restaurante: {
-        name: 'Agente Restaurante La Plaza',
-        sector: 'Restaurante',
-        intro: '¡Buenas! 🍽️ Soy el asistente de Restaurante La Plaza. ¿Quieres hacer una reserva?',
-        replies: [
-          '¡Perfecto! ¿Para cuántas personas y qué día tienes en mente?',
-          'Anotado. ¿Hay alguna alergia o preferencia especial que debamos tener en cuenta?',
-          'Todo listo. Solo necesito tu nombre y teléfono para confirmar la reserva — te llegará un WhatsApp de confirmación 🙌',
-        ],
-        lead: '🔔 Nueva reserva — Restaurante\nCliente solicita mesa. Pendiente de confirmar.',
-      },
     };
 
     let currentDemo = 'academia';
