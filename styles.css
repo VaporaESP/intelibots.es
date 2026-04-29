@@ -100,18 +100,20 @@ nav.scrolled {
 /* Hamburger */
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; background: none; border: none; padding: 4px;
+  cursor: pointer; background: none; border: none; padding: 10px;
+  margin-right: -10px;
 }
 .hamburger span {
-  display: block; width: 22px; height: 1.5px;
+  display: block; width: 24px; height: 2px;
   background: var(--text); border-radius: 2px;
   transition: transform 0.3s, opacity 0.3s;
 }
 
 /* Mobile menu */
 .mobile-menu {
-  position: fixed; inset: 0; z-index: 99;
-  background: var(--bg2);
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  z-index: 9999; background: #F4F7FF;
   padding: 80px 5vw 40px;
   display: flex; flex-direction: column; gap: 4px;
   transform: translateX(100%);
@@ -131,6 +133,7 @@ nav.scrolled {
 .mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
 .mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
 .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+.mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
 .mob-cta {
   margin-top: 24px !important;
   background: var(--accent) !important;

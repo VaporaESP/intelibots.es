@@ -102,16 +102,19 @@ nav.scrolled{
 /* Hamburger */
 .hamburger{
   display:none;flex-direction:column;gap:5px;
-  cursor:pointer;background:none;border:none;padding:4px;
+  cursor:pointer;background:none;border:none;padding:10px;
+  margin-right:-10px;
 }
 .hamburger span{
-  display:block;width:22px;height:1.5px;background:var(--text);
+  display:block;width:24px;height:2px;background:var(--text);
   border-radius:2px;transition:transform 0.3s,opacity 0.3s;
 }
 
 /* Mobile menu */
 .mobile-menu{
-  position:fixed;inset:0;z-index:99;background:var(--bg2);
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  width:100%;height:100%;
+  z-index:9999;background:#F4F7FF;
   padding:80px 5vw 40px;
   display:flex;flex-direction:column;gap:4px;
   transform:translateX(100%);
@@ -131,6 +134,7 @@ nav.scrolled{
 .mobile-menu.open a:nth-child(3){transition-delay:0.15s}
 .mobile-menu.open a:nth-child(4){transition-delay:0.20s}
 .mobile-menu.open a:nth-child(5){transition-delay:0.25s}
+.mobile-menu.open a:nth-child(6){transition-delay:0.30s}
 .mobile-cta-link{
   margin-top:24px!important;background:var(--accent)!important;
   color:#fff!important;text-align:center;
@@ -240,7 +244,8 @@ nav.scrolled{
   border-radius:50%;background:var(--accent);
 }
 .chat-messages{
-  padding:20px;min-height:280px;
+  padding:20px;height:280px;
+  overflow:hidden;
   display:flex;flex-direction:column;gap:10px;
 }
 .msg{
@@ -677,7 +682,7 @@ footer{
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .hero{grid-template-columns:1fr;gap:48px;padding-top:110px}
+  .hero{grid-template-columns:1fr;gap:48px;padding-top:110px;min-height:auto}
   .hero-chat{max-width:480px}
   .services-grid{grid-template-columns:1fr}
   .demo-inner{grid-template-columns:1fr;gap:48px}
@@ -693,12 +698,17 @@ footer{
   .footer-grid{grid-template-columns:1fr}
   .cta-title{font-size:36px}
   .team-grid{grid-template-columns:1fr}
+  .hero{padding:96px 5vw 48px;min-height:auto}
+  .hero-chat{width:100%;max-width:100%}
+  .chat-messages{height:220px}
+  .hero-h1{font-size:clamp(36px,9vw,52px)}
 }
 @media(max-width:480px){
   .metrics-grid{grid-template-columns:1fr 1fr}
   .hero-actions{flex-direction:column}
   .hero-actions .btn-primary,
   .hero-actions .btn-ghost{text-align:center;justify-content:center}
+  .chat-messages{height:190px}
 }
 /* ── WHATSAPP FLOAT ── */
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:500;width:48px;height:48px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.45);text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;animation:wa-appear 0.5s 1.5s cubic-bezier(0.34,1.56,0.64,1) both}
@@ -735,6 +745,7 @@ footer{
 </nav>
 
 <nav class="mobile-menu" id="mob" aria-label="Menú móvil" aria-hidden="true">
+  <a href="index.html" onclick="closeMob()">Inicio</a>
   <a href="agentes-ia.html" onclick="closeMob()">Agentes IA</a>
   <a href="paginas-web.html" onclick="closeMob()">Páginas Web</a>
   <a href="demo.html" onclick="closeMob()">Demo en vivo</a>
@@ -1038,7 +1049,7 @@ footer{
     </div>
     <div class="urgency" aria-live="polite">
       <div class="urgency-dot" aria-hidden="true"></div>
-      <span>Este mes quedan <strong style="color:var(--text)">2 plazas</strong> para onboarding. Cierre el 30 de abril.</span>
+      <span>Este mes quedan <strong style="color:var(--text)">2 plazas</strong> para onboarding. Cierre el 15 de Mayo.</span>
     </div>
   </div>
 </section>
@@ -1083,7 +1094,7 @@ footer{
   </div>
   <div class="footer-bottom">
     <span>© 2025 InteliBots. Todos los derechos reservados.</span>
-    <span>Hecho con IA en España 🇪🇸</span>
+    <span>Hecho por el equipo de intelibots 🇪🇸</span>
   </div>
 </footer>
 
