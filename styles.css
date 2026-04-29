@@ -170,8 +170,8 @@ section { padding: 100px 5vw; }
 }
 
 /* ── REVEAL ANIMATIONS ── */
-.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s, transform 0.7s; }
-.reveal.visible { opacity: 1; transform: none; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; will-change: transform, opacity; }
+.reveal.visible { opacity: 1; transform: none; will-change: auto; }
 .d1 { transition-delay: 0.10s; }
 .d2 { transition-delay: 0.20s; }
 .d3 { transition-delay: 0.30s; }
