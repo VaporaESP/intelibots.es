@@ -131,7 +131,7 @@
   }
 
   // ── WHATSAPP FLOAT BUTTON ────────────────────────────
-  const WA_NUMBER  = '34600000000'; // ← reemplaza con tu número real (sin + ni espacios)
+  const WA_NUMBER  = '34625211550';
   const WA_MESSAGE = encodeURIComponent('Hola, me interesa saber más sobre vuestros servicios de IA para mi academia.');
   const waLink = document.createElement('a');
   waLink.href = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`;
